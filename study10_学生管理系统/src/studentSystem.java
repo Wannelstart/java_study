@@ -2,14 +2,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class studentSystem {
-    public static void main(String[] args) {
+    public static void startStudentSystem() {
 
-        ArrayList<student> list = new ArrayList<>();
+        ArrayList<student> student_list = new ArrayList<>();
 
-        student s1 = new student("001", "张三", 18, "北京");
-        student s2 = new student("002", "李四", 19, "上海");
-        list.add(s1);
-        list.add(s2);
+        student s1 = new student(1, "zsan", 18, "北京");
+        student s2 = new student(2, "lisi", 19, "上海");
+        student_list.add(s1);
+        student_list.add(s2);
 
         loop:
         while (true) {
@@ -24,10 +24,10 @@ public class studentSystem {
             Scanner sc = new Scanner(System.in);
             String choose = sc.next();
             switch (choose) {
-                case "1" -> addStudent(list);
-                case "2" -> deleteStudent(list);
-                case "3" -> updateStudent(list);
-                case "4" -> queryStudent(list);
+                case "1" -> addStudent(student_list);
+                case "2" -> deleteStudent(student_list);
+                case "3" -> updateStudent(student_list);
+                case "4" -> queryStudent(student_list);
                 case "5" -> {
                     System.out.println("退出系统");
                     break loop;//控指定跳出哪个循环
@@ -48,7 +48,7 @@ public class studentSystem {
 
         while (true) {
             System.out.println("请输入学生id");
-            String id = sc.next();
+            int id = sc.nextInt();
             boolean flag = check(list, id);
             if (flag) {//判断id是否存在
                 System.out.println("id已存在，请重新输入\n");
@@ -80,7 +80,7 @@ public class studentSystem {
         System.out.println("删除学生");
         Scanner sc = new Scanner(System.in);
         System.out.println("请输入要删除的学生的id");
-        String id = sc.next();
+        int id = sc.nextInt();
         int index = getIndex(list, id);
         if (index >= 0) {
             list.remove(index);
@@ -95,7 +95,7 @@ public class studentSystem {
         System.out.println("修改学生");
         System.out.println("请输入要修改的学生的id");
         Scanner sc = new Scanner(System.in);
-        String id = sc.next();
+        int id = sc.nextInt();
 
         int index = getIndex(list, id);
 
@@ -131,26 +131,27 @@ public class studentSystem {
             System.out.println("id\t\t姓名\t年龄\t家庭住址");
             for (int i = 0; i < list.size(); i++) {
                 student stu = list.get(i);
-                System.out.println(stu.getId() + "\t\t" + stu.getName() + "\t\t" + stu.getAge() + "\t\t" + stu.getAddress());
+                System.out.printf("%-8s %-8s %-8s %-8s%n",stu.getId(),stu.getName(),stu.getAge(),stu.getAddress());
+                //字符串左对齐，占8个字符宽
             }
         }
 
     }
 
     //判断id是否存在
-    public static boolean check(ArrayList<student> list, String id) {
+    public static boolean check(ArrayList<student> list, int id) {
         return getIndex(list, id) >= 0;//复用代码
     }
 
     //根据id获取索引
-    public static int getIndex(ArrayList<student> list, String id) {
+    public static int getIndex(ArrayList<student> list, int id) {
         if (list.size() == 0) {
                 return -1;
         }
         for (int i = 0; i < list.size(); i++) {
             student stu =list.get(i);
-            String sid = stu.getId();
-            if (sid.equals(id)) {
+            int sid = stu.getId();
+            if (sid == id) {
                 return i;
             }
         }

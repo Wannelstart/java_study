@@ -1,5 +1,5 @@
 public class student {
-    private String id;
+    private int id;
     private String name;
     private int age;
     private String address;
@@ -7,18 +7,18 @@ public class student {
     public student() {
     }
 
-    public student(String id, String name, int age, String address) {
+    public student(int id, String name, int age, String address) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.address = address;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
